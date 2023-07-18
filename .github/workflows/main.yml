@@ -1,0 +1,22 @@
+on: [push]
+
+jobs:
+  build:
+    name: Build image
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Buildah Action
+      uses: redhat-actions/buildah-build@v2
+      with:
+        image: ubi-actions-image
+        tags: v1 ${{ github.sha }}
+        containerfiles: |
+          ./Dockerfile
+    - name: Login to GitHub Package Registry
+      run: echo "${{ secrets.GITHUB_TOKEN }}" | buildah login -u "${GITHUB_ACTOR}" --password-stdin docker.pkg.github.com
+    - name: Push the Docker image to the registry
+      run: |
+        buildah push ubi-actions-image:v1 docker.pkg.github.com/${{ github.repository }}/ubi-actions-image:v1
