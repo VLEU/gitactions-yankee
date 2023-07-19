@@ -1,5 +1,5 @@
 
-FROM registry.redhat.io/rhel9/php-81@sha256:f3486e8b190dcfd05fe3c55055188fa5d867c7b0a48081b2b430470e77b2d8ca
+FROM registry.access.redhat.com/ubi8/ubi@sha256:8fea2399f44a9dfdfa18eec4e3e5d2e1d71f0a865dd1d5c66215a6d68ccafa8a
 
 USER root
 LABEL maintainer="ARCS StuWeb09"
